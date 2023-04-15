@@ -13,10 +13,56 @@ const { NotImplementedError } = require('../extensions/index.js');
  * transform([1, 2, 3, '--discard-prev', 4, 5]) => [1, 2, 4, 5]
  * 
  */
-function transform(/* arr */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function transform(arr) {
+  if(!arr || !Array.isArray(arr)){
+    throw new Error("'arr' parameter must be an instance of the Array!")
+  }
+
+  let transformArray = [...arr];
+
+  
+
+  for(let i = 0; i < transformArray.length; i++){
+    switch(transformArray[i]){
+      case "--double-next":
+        // if(!transformArray[i + 1]){
+        //   throw new Error("'arr' parameter must be an instance of the Array!")
+        // }
+        transformArray [i] = transformArray [i + 1];
+        break;
+      case "--double-prev":
+          // if(!transformArray[i - 1]){
+          //   throw new Error("'arr' parameter must be an instance of the Array!")
+          // }
+          transformArray [i] = transformArray [i - 1];
+          break;
+      case "--discard-prev":
+          // if(!transformArray[i - 1]){
+          //   throw new Error("'arr' parameter must be an instance of the Array!")
+          // }
+          transformArray [i - 1] = 'delete';
+          transformArray [i] = 'delete';
+          break;
+      case "--discard-next":
+          // if(!transformArray[i + 1]){
+          //   throw new Error("'arr' parameter must be an instance of the Array!")
+          // }
+          transformArray [i + 1] = 'delete';
+          transformArray [i] = 'delete';
+          break;
+      default:
+    }
+  }
+
+
+  return transformArray.filter(item => item !== 'delete' && item !== undefined)
 }
+// console.log(transform([1, 2, 3, '--discard-next', 1337, '--double-prev', 4, 5]), " => [1, 2, 3, 4, 5]")
+// console.log(transform([1, 2, 3, '--double-next', 1337, '--double-prev', 4, 5]), " => [1, 2, 3, 1337, 1337, 1337, 4, 5]")
+// console.log(transform([1, 2, 3, '--discard-next', 1337, '--discard-prev', 4, 5]), " => [1, 2, 3, 4, 5]")
+// console.log(transform([1, 2, 3, '--double-next', 1337, '--discard-prev', 4, 5]), " => [1, 2, 3, 1337, 4, 5]")
+
+
 
 module.exports = {
   transform
