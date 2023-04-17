@@ -25,32 +25,50 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 function minesweeper(matrix) {
   // console.log(matrix)
-  let arr = Array(matrix.length).fill(Array(matrix.length).fill(0));
+  let arr = [];
+  let row = [];
   // console.log(matrix)
+  let counter = 0;
 
-
-  for(let i = 0; i < arr.length; i++){
-    let counter = 0;
-    for(let j = 0; j < arr[0].length; j++){
-      counter = 0
-      if(matrix[i][j-1] == true || matrix[i][j+1] == true){
+  for(let i = 0; i < matrix.length; i++){
+    row = []
+    for(let j = 0; j < matrix[0].length; j++){
+      counter = 0;
+      if(matrix[i][j + 1] === true || matrix[i][j - 1] === true){
         counter++
       }
-
-      arr[i][j] = counter
-      
+      if(matrix[i - 1] && matrix[i - 1][j] === true){
+        counter++
+      }
+      if(matrix[i + 1] && matrix[i + 1][j] === true){
+        counter++
+      }
+      if(matrix[i + 1] && matrix[i + 1][j + 1] === true){
+        counter++
+      }
+      if(matrix[i - 1] && matrix[i - 1][j - 1] === true){
+        counter++
+      }
+      if(matrix[i + 1] && matrix[i + 1][j - 1] === true){
+        counter++
+      }
+      if(matrix[i - 1] && matrix[i - 1][j + 1] === true){
+        counter++
+      }
+      row.push(counter)
     }
+    arr.push(row)
   }
 
   return arr
 }
-let matrix = [
-    [true, false, false],
-    [false, true, false],
-    [false, false, false]
-]
-  
-console.log(minesweeper(matrix));
+// let matrix = [
+//     [true, false, false],
+//     [false, true, false],
+//     [false, false, false]
+// ]
+
+// console.log(minesweeper(matrix));
 
 module.exports = {
   minesweeper

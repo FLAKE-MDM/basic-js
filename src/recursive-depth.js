@@ -13,30 +13,26 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 class DepthCalculator {
-
-
-  calculateDepth(arr) {
-    // let counterArr = [];
-    // let counter = 0;
-    // findArray(arr);
-  
-    // function findArray(array){
-    //   counter = 0
-    //   if(Array.isArray(array)){
-    //     for(let i = 0; i < array.length; i++){
-    //       findArray(array[i]);
-    //     }
-    //   }
-    //   counterArr.push(counter)
-    // }
-    // console.log(counterArr)
-    // // return counter
+  calculateDepth(array, counter = 0) {
+    if(Array.isArray(array)){
+      let deepMax = counter + 1;
+      for(let i = 0; i < array.length; i++){
+        let deepCounter = this.calculateDepth(array[i], counter + 1);
+        if (deepCounter > deepMax) {
+          deepMax = deepCounter;
+        }
+      }
+      return deepMax;
+    } else {
+      return counter;
+    }
   }
 }
 
 module.exports = {
   DepthCalculator
 };
+
 // const depthCalc = new DepthCalculator();
 
 // console.log(depthCalc.calculateDepth([1, [8, [[]]], [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]], []]]], []]]]]]]]], []]]], []]]]]]]]]], 2, 3, [8, [[[[[[[[[[[[[[]]]]]]]]]]]]]]], [8, [[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]], 4, 5, ['6575', ['adas', ['dfg', [0]]]]]), " => 31")

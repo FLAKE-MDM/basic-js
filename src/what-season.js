@@ -15,17 +15,19 @@ function getSeason(date) {
   if(!date){
     return "Unable to determine the time of year!"
   }
+  // if(!(date instanceof Date) || isNaN(date)  || typeof date === "number"){
+  //   throw new Error("Invalid date!")
+  // }
 
-
-  let current = new Date(date)
-
-
-
-  if(!(date instanceof Date) || isNaN(current)){
-    throw new Error("Invalid date!")
+  try {
+    if (!date.getTime()) {
+      throw new Error("Invalid date!");
+    }
+  } catch (err) {
+    throw new Error("Invalid date!");
   }
 
-  let month = current.getMonth();
+  let month = date.getMonth();
   let seasons = ['spring', 'summer', 'autumn', 'winter'];
   let message = "";
   switch(month){

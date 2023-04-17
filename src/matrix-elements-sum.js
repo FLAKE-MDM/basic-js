@@ -17,7 +17,21 @@ const { NotImplementedError } = require('../extensions/index.js');
  * The result should be 9
  */
 function getMatrixElementsSum(matrix) {
-  return matrix.reduce((sum, item) => sum +=item)
+  let numbers = [];
+
+  for(let i = 0; i < matrix.length; i++){
+    for(let j = 0; j < matrix[0].length; j++){
+      if(i == 0){
+        numbers.push(matrix[i][j]);
+      } else{
+          if(matrix[i-1][j] !== 0){
+            numbers.push(matrix[i][j]);
+          }
+      }
+    }
+  }
+
+  return numbers.reduce((sum, item) => sum+=item)
 }
 
 module.exports = {
@@ -25,29 +39,29 @@ module.exports = {
 };
 
 
-// assert.strictEqual(getMatrixElementsSum([
+// console.log(getMatrixElementsSum([
 //   [0, 1, 1, 2],
 //   [0, 5, 0, 0],
 //   [2, 0, 3, 3],
 // ]), 9);
 
-// assert.strictEqual(getMatrixElementsSum([
+// console.log(getMatrixElementsSum([
 //   [1, 2, 3, 4],
 //   [0, 5, 0, 0],
 //   [2, 0, 3, 3],
 // ]), 15);
 
-// assert.strictEqual(getMatrixElementsSum([
+// console.log(getMatrixElementsSum([
 //   [1, 1, 1],
 //   [2, 2, 2],
 //   [3, 3, 3],
 // ]), 18);
 
-// assert.strictEqual(getMatrixElementsSum([
+// console.log(getMatrixElementsSum([
 //   [0],
 // ]), 0);
 
-// assert.strictEqual(getMatrixElementsSum([
+// console.log(getMatrixElementsSum([
 //   [1],
 //   [5],
 //   [0],
